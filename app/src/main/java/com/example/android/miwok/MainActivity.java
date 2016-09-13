@@ -15,10 +15,12 @@
  */
 package com.example.android.miwok;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,10 +30,47 @@ public class MainActivity extends AppCompatActivity {
 
         // Set the content of the activity to use the activity_main.xml layout file
         setContentView(R.layout.activity_main);
+
+        TextView numbersTextView = (TextView) findViewById(R.id.numbers);
+        TextView familyTextView = (TextView) findViewById(R.id.family);
+        TextView colorsTextView = (TextView) findViewById(R.id.colors);
+        TextView phrasesTextView = (TextView) findViewById(R.id.phrases);
+
+        assert numbersTextView != null;
+        numbersTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity(NumbersActivity.class);
+            }
+        });
+
+        assert familyTextView != null;
+        familyTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity(FamilyMembersActivity.class);
+            }
+        });
+
+        assert colorsTextView != null;
+        colorsTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity(ColorsActivity.class);
+            }
+        });
+
+        assert phrasesTextView != null;
+        phrasesTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openActivity(PhrasesActivity.class);
+            }
+        });
     }
 
-    public void openNumbersList(View view) {
-        Intent i = new Intent(this, NumbersActivity.class);
+    private void openActivity(Class activityClass) {
+        Intent i = new Intent(this, activityClass);
         startActivity(i);
     }
 }
