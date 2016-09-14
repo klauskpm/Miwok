@@ -15,7 +15,6 @@
  */
 package com.example.android.miwok;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -31,9 +30,13 @@ public class MainActivity extends AppCompatActivity {
         // Set the content of the activity to use the activity_main.xml layout file
         setContentView(R.layout.activity_main);
 
+        // Find the View that shows the numbers category
         TextView numbersTextView = (TextView) findViewById(R.id.numbers);
+        // Find the View that shows the family category
         TextView familyTextView = (TextView) findViewById(R.id.family);
+        // Find the View that shows the colors category
         TextView colorsTextView = (TextView) findViewById(R.id.colors);
+        // Finde the View that shows the phrases category
         TextView phrasesTextView = (TextView) findViewById(R.id.phrases);
 
         assert numbersTextView != null;
