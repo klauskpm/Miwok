@@ -3,7 +3,7 @@ package com.example.android.miwok;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -28,8 +28,8 @@ public class NumbersActivity extends AppCompatActivity {
         words.add("ten");
 
         ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, words);
-        GridView gridView = (GridView) findViewById(R.id.list);
-        assert gridView != null;
-        gridView.setAdapter(itemsAdapter);
+        ListView listView = (ListView) findViewById(R.id.list);
+        assert listView != null;
+        listView.setAdapter(itemsAdapter);
     }
 }
