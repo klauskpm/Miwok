@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Miwok</string>
+    <string name="category_colors">Cores</string>
+    <string name="category_family">Membros da Família</string>
+    <string name="category_numbers">Números</string>
+    <string name="category_phrases">Frases</string>
+    <string name="translation_color_black">preto</string>
+    <string name="translation_color_brown">marrom</string>
+    <string name="translation_color_dusty_yellow">amarelo empoeirado</string>
+    <string name="translation_color_gray">cinza</string>
+    <string name="translation_color_green">verde</string>
+    <string name="translation_color_mustard_yellow">amarelo mostarda</string>
+    <string name="translation_color_red">vermelho</string>
+    <string name="translation_color_white">branco</string>
+    <string name="translation_family_daughter">filha</string>
+    <string name="translation_family_grandfather">avô</string>
+    <string name="translation_family_father">pai</string>
+    <string name="translation_family_grandmother">avó</string>
+    <string name="translation_family_mother">mãe</string>
+    <string name="translation_family_older_brother">irmão mais velho</string>
+    <string name="translation_family_older_sister">irmã mais velha</string>
+    <string name="translation_family_son">filho</string>
+    <string name="translation_family_younger_brother">irmão mais novo</string>
+    <string name="translation_family_younger_sister">irmã mais nova</string>
+    <string name="translation_number_eight">oito</string>
+    <string name="translation_number_five">cinco</string>
+    <string name="translation_number_four">quatro</string>
+    <string name="translation_number_nine">nove</string>
+    <string name="translation_number_one">um</string>
+    <string name="translation_number_seven">sete</string>
+    <string name="translation_number_six">seis</string>
+    <string name="translation_number_ten">dez</string>
+    <string name="translation_number_three">três</string>
+    <string name="translation_number_two">dois</string>
+    <string name="translation_phrase_come_here">Venha aqui.</string>
+    <string name="translation_phrase_comming">Estou indo.</string>
+    <string name="translation_phrase_feeling_good">Estou me sentindo bem.</string>
+    <string name="translation_phrase_how_feeling">Como você está se sentindo?</string>
+    <string name="translation_phrase_lets_go">Vamos lá.</string>
+    <string name="translation_phrase_my_name">Meu nome é...</string>
+    <string name="translation_phrase_what_name">Qual é o seu nome?</string>
+    <string name="translation_phrase_where_going">Onde você está indo?</string>
+    <string name="translation_phrase_yes_comming">Sim, eu estou indo.</string>
+    <string name="translation_phrase_you_comming">Você vem?</string>
+</resources>
