@@ -37,7 +37,7 @@ public class Word {
      *
      * @return the miwok translation
      */
-    public String getmMiwokTranslation() {
+    public String getMiwokTranslation() {
         return mMiwokTranslation;
     }
 
@@ -46,7 +46,7 @@ public class Word {
      *
      * @return the default translation
      */
-    public String getmDefaultTranslation() {
+    public String getDefaultTranslation() {
         return mDefaultTranslation;
     }
 
@@ -55,7 +55,7 @@ public class Word {
      *
      * @return the image resource id
      */
-    public int getmImageResourceId() {
+    public int getImageResourceId() {
         return mImageResourceId;
     }
 }

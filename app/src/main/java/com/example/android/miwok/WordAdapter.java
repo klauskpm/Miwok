@@ -33,10 +33,10 @@ public class WordAdapter extends ArrayAdapter<Word> {
         assert word != null;
 
         TextView miwokTextView = (TextView) listView.findViewById(R.id.miwok_translation);
-        miwokTextView.setText(word.getmMiwokTranslation());
+        miwokTextView.setText(word.getMiwokTranslation());
 
         TextView defaultTextView = (TextView) listView.findViewById(R.id.default_translation);
-        defaultTextView.setText(word.getmDefaultTranslation());
+        defaultTextView.setText(word.getDefaultTranslation());
 
         return listView;
     }
