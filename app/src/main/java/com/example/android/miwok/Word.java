@@ -20,7 +20,7 @@ public class Word {
     }
 
     /**
-     * Instantiates a new Word with a image resource.
+     * Instantiates a new Word.
      *
      * @param mMiwokTranslation   the m miwok translation
      * @param mDefaultTranslation the m default translation
