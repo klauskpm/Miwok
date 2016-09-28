@@ -6,6 +6,7 @@ package com.example.android.miwok;
 public class Word {
     private String mMiwokTranslation;
     private String mDefaultTranslation;
+    private int mAudioResourceId;
     private int mImageResourceId = NO_IMAGE_PROVIDED;
 
     private static final int NO_IMAGE_PROVIDED = -1;
@@ -13,24 +14,28 @@ public class Word {
     /**
      * Instantiates a new Word.
      *
-     * @param miwokTranslation   the miwok translation
-     * @param defaultTranslation the default translation
+     * @param mMiwokTranslation   the miwok translation
+     * @param mDefaultTranslation the default translation
+     * @param mAudioResourceId    the audio resource id
      */
-    public Word(String miwokTranslation, String defaultTranslation) {
-        mMiwokTranslation = miwokTranslation;
-        mDefaultTranslation = defaultTranslation;
+    public Word(String mMiwokTranslation, String mDefaultTranslation, int mAudioResourceId) {
+        this.mMiwokTranslation = mMiwokTranslation;
+        this.mDefaultTranslation = mDefaultTranslation;
+        this.mAudioResourceId = mAudioResourceId;
     }
 
     /**
      * Instantiates a new Word.
      *
-     * @param mMiwokTranslation   the m miwok translation
-     * @param mDefaultTranslation the m default translation
-     * @param mImageResourceId    the m image resource id
+     * @param mMiwokTranslation   the miwok translation
+     * @param mDefaultTranslation the default translation
+     * @param mAudioResourceId    the audio resource id
+     * @param mImageResourceId    the image resource id
      */
-    public Word(String mMiwokTranslation, String mDefaultTranslation, int mImageResourceId) {
+    public Word(String mMiwokTranslation, String mDefaultTranslation, int mAudioResourceId, int mImageResourceId) {
         this.mMiwokTranslation = mMiwokTranslation;
         this.mDefaultTranslation = mDefaultTranslation;
+        this.mAudioResourceId = mAudioResourceId;
         this.mImageResourceId = mImageResourceId;
     }
 
@@ -61,7 +66,21 @@ public class Word {
         return mImageResourceId;
     }
 
+    /**
+     * Has image boolean.
+     *
+     * @return the boolean
+     */
     public boolean hasImage() {
         return mImageResourceId != NO_IMAGE_PROVIDED;
+    }
+
+    /**
+     * Gets audio resource id.
+     *
+     * @return the audio resource id
+     */
+    public int getAudioResourceId() {
+        return mAudioResourceId;
     }
 }
