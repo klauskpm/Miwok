@@ -42,7 +42,10 @@ public class WordAdapter extends ArrayAdapter<Word> {
         ImageView itemImageView = (ImageView) listView.findViewById(R.id.list_item__image_view);
         assert itemImageView != null;
 
-        itemImageView.setImageResource(word.getImageResourceId());
+        if (word.hasImage())
+            itemImageView.setImageResource(word.getImageResourceId());
+        else
+            itemImageView.setVisibility(View.GONE);
 
         return listView;
     }
