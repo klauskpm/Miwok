@@ -27,7 +27,7 @@ public class PhrasesActivity extends AppCompatActivity {
         words.add(new Word("әnni'nem", getString(R.string.translation_phrase_come_here)));
 
         WordAdapter itemsAdapter =
-                new WordAdapter(this, R.layout.list_item, words);
+                new WordAdapter(this, R.layout.list_item, words, R.color.category_phrases);
 
         ListView listView = (ListView) findViewById(R.id.list);
         assert listView != null;
