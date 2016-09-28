@@ -17,11 +17,11 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@color/category_numbers"
         android:gravity="center_vertical"
         android:orientation="vertical"
         android:paddingEnd="16sp"
-        android:paddingStart="16dp">
+        android:paddingStart="16dp"
+        android:id="@+id/list_item_content">
 
         <TextView
             android:id="@+id/miwok_translation"

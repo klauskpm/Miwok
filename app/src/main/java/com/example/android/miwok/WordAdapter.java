@@ -2,11 +2,13 @@ package com.example.android.miwok;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,8 +18,12 @@ import java.util.ArrayList;
  */
 
 public class WordAdapter extends ArrayAdapter<Word> {
-    public WordAdapter(Context context, int resource, ArrayList<Word> words) {
+    private int mListColor;
+
+    public WordAdapter(Context context, int resource, ArrayList<Word> words, int listColor) {
         super(context, 0, words);
+
+        mListColor = listColor;
     }
 
     @NonNull
@@ -32,6 +38,10 @@ public class WordAdapter extends ArrayAdapter<Word> {
 
         Word word = getItem(position);
         assert word != null;
+
+        int color = ContextCompat.getColor(getContext(), mListColor);
+        LinearLayout itemContent = (LinearLayout) listView.findViewById(R.id.list_item_content);
+        itemContent.setBackgroundColor(color);
 
         TextView miwokTextView = (TextView) listView.findViewById(R.id.miwok_translation);
         miwokTextView.setText(word.getMiwokTranslation());
