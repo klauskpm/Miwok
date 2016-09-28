@@ -2,41 +2,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="88dp"
+    android:layout_height="wrap_content"
+    android:background="@color/tan_background"
+    android:minHeight="@dimen/list_item_height"
     android:orientation="horizontal">
 
     <ImageView
-        android:layout_width="88dp"
-        android:layout_height="88dp"
-        android:src="@mipmap/ic_launcher"
         android:id="@+id/list_item__image_view"
-        android:background="@color/tan_background"/>
+        android:layout_width="@dimen/list_item_height"
+        android:layout_height="@dimen/list_item_height"
+        android:src="@mipmap/ic_launcher" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="vertical"
+        android:background="@color/category_numbers"
         android:gravity="center_vertical"
-        android:paddingStart="16dp"
+        android:orientation="vertical"
         android:paddingEnd="16sp"
-        android:background="@color/category_numbers">
+        android:paddingStart="16dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/miwok_translation"
-            tools:text="lutti"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"/>
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            tools:text="lutti" />
+
+        <TextView
             android:id="@+id/default_translation"
-            tools:text="one"
-            android:textSize="18sp"
-            android:textColor="@android:color/white"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@android:color/white"
+            tools:text="one" />
     </LinearLayout>
 </LinearLayout>
