@@ -13,6 +13,13 @@ public class FamilyMembersActivity extends AppCompatActivity {
 
     private MediaPlayer mMediaPlayer;
 
+    private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mediaPlayer) {
+            releaseMediaPlayer();
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,12 +59,7 @@ public class FamilyMembersActivity extends AppCompatActivity {
                 mMediaPlayer = MediaPlayer.create(FamilyMembersActivity.this, currentWord.getAudioResourceId());
                 mMediaPlayer.start();
 
-                mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mediaPlayer) {
-                        releaseMediaPlayer();
-                    }
-                });
+                mMediaPlayer.setOnCompletionListener(mCompletionListener);
             }
         });
     }
