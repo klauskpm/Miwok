@@ -26,8 +26,10 @@ public class ColorsActivity extends AppCompatActivity {
         words.add(new Word("ṭopoppi", getString(R.string.translation_color_gray), R.raw.color_gray, R.drawable.color_gray));
         words.add(new Word("kululli", getString(R.string.translation_color_black), R.raw.color_black, R.drawable.color_black));
         words.add(new Word("kelelli", getString(R.string.translation_color_white), R.raw.color_white, R.drawable.color_white));
-        words.add(new Word("ṭopiisә", getString(R.string.translation_color_dusty_yellow), R.raw.color_dusty_yellow, R.drawable.color_dusty_yellow));
-        words.add(new Word("chiwiiṭә", getString(R.string.translation_color_mustard_yellow), R.raw.color_mustard_yellow, R.drawable.color_mustard_yellow));
+        words.add(new Word("ṭopiisә", getString(R.string.translation_color_dusty_yellow), R.raw.color_dusty_yellow,
+                R.drawable.color_dusty_yellow));
+        words.add(new Word("chiwiiṭә", getString(R.string.translation_color_mustard_yellow), R.raw.color_mustard_yellow,
+                R.drawable.color_mustard_yellow));
 
         WordAdapter itemsAdapter =
                 new WordAdapter(this, R.layout.list_item, words, R.color.category_colors);
