@@ -84,10 +84,10 @@ public class NumbersActivity extends AppCompatActivity {
 
                 releaseMediaPlayer();
 
-                int amRequest = mAudioManager.requestAudioFocus(mOnAudioFocusChangeListener,
+                int audioFocusRequest = mAudioManager.requestAudioFocus(mOnAudioFocusChangeListener,
                         AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
 
-                if (amRequest == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+                if (audioFocusRequest == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
                     mMediaPlayer = MediaPlayer.create(NumbersActivity.this, currentWord.getAudioResourceId());
                     mMediaPlayer.start();
 

@@ -1,5 +1,7 @@
 package com.example.android.miwok;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,34 @@ import java.util.ArrayList;
 public class FamilyMembersActivity extends AppCompatActivity {
 
     private MediaPlayer mMediaPlayer;
+    private AudioManager mAudioManager;
+
+    private AudioManager.OnAudioFocusChangeListener mOnAudioFocusChangeListener =
+            new AudioManager.OnAudioFocusChangeListener() {
+                @Override
+                public void onAudioFocusChange(int focusChange) {
+                    switch(focusChange) {
+                        case AudioManager.AUDIOFOCUS_LOSS:
+                            releaseMediaPlayer();
+                            break;
+
+                        case AudioManager.AUDIOFOCUS_GAIN:
+                        case AudioManager.AUDIOFOCUS_GAIN_TRANSIENT:
+                            mMediaPlayer.start();
+                            break;
+
+                        case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
+                        case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
+                            mMediaPlayer.pause();
+                            mMediaPlayer.seekTo(0);
+                            break;
+
+                        default:
+                            releaseMediaPlayer();
+                            break;
+                    }
+                }
+            };
 
     private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
         @Override
@@ -26,6 +56,8 @@ public class FamilyMembersActivity extends AppCompatActivity {
         setContentView(R.layout.word_list);
 
         final ArrayList<Word> words = new ArrayList<Word>();
+
+        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         words.add(new Word("әpә", getString(R.string.translation_family_father), R.raw.family_father, R.drawable.family_father));
         words.add(new Word("әṭa", getString(R.string.translation_family_mother), R.raw.family_mother, R.drawable.family_mother));
@@ -56,10 +88,16 @@ public class FamilyMembersActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 releaseMediaPlayer();
                 Word currentWord = words.get(i);
-                mMediaPlayer = MediaPlayer.create(FamilyMembersActivity.this, currentWord.getAudioResourceId());
-                mMediaPlayer.start();
 
-                mMediaPlayer.setOnCompletionListener(mCompletionListener);
+                int audioFocusRequest = mAudioManager.requestAudioFocus(mOnAudioFocusChangeListener,
+                        AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+
+                if (audioFocusRequest == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+                    mMediaPlayer = MediaPlayer.create(FamilyMembersActivity.this, currentWord.getAudioResourceId());
+                    mMediaPlayer.start();
+
+                    mMediaPlayer.setOnCompletionListener(mCompletionListener);
+                }
             }
         });
     }
@@ -76,5 +114,7 @@ public class FamilyMembersActivity extends AppCompatActivity {
 
             mMediaPlayer = null;
         }
+
+        mAudioManager.abandonAudioFocus(mOnAudioFocusChangeListener);
     }
 }
