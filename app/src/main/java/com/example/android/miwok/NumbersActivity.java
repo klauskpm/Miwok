@@ -1,5 +1,7 @@
 package com.example.android.miwok;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,34 @@ import java.util.ArrayList;
 public class NumbersActivity extends AppCompatActivity {
 
     private MediaPlayer mMediaPlayer;
+    private AudioManager mAudioManager;
+
+    private AudioManager.OnAudioFocusChangeListener mOnAudioFocusChangeListener =
+            new AudioManager.OnAudioFocusChangeListener() {
+                @Override
+                public void onAudioFocusChange(int focusChange) {
+                    switch (focusChange) {
+                        case AudioManager.AUDIOFOCUS_LOSS:
+                            releaseMediaPlayer();
+                            break;
+
+                        case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
+                        case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
+                            mMediaPlayer.pause();
+                            mMediaPlayer.seekTo(0);
+                            break;
+
+                        case AudioManager.AUDIOFOCUS_GAIN:
+                        case AudioManager.AUDIOFOCUS_GAIN_TRANSIENT:
+                            mMediaPlayer.start();
+                            break;
+
+                        default:
+                            releaseMediaPlayer();
+                            break;
+                    }
+                }
+            };
 
     private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
         @Override
@@ -24,6 +54,8 @@ public class NumbersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_list);
+
+        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         final ArrayList<Word> words = new ArrayList<Word>();
 
@@ -48,12 +80,19 @@ public class NumbersActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                releaseMediaPlayer();
                 Word currentWord = words.get(i);
-                mMediaPlayer = MediaPlayer.create(NumbersActivity.this, currentWord.getAudioResourceId());
-                mMediaPlayer.start();
 
-                mMediaPlayer.setOnCompletionListener(mCompletionListener);
+                releaseMediaPlayer();
+
+                int amRequest = mAudioManager.requestAudioFocus(mOnAudioFocusChangeListener,
+                        AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+
+                if (amRequest == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+                    mMediaPlayer = MediaPlayer.create(NumbersActivity.this, currentWord.getAudioResourceId());
+                    mMediaPlayer.start();
+
+                    mMediaPlayer.setOnCompletionListener(mCompletionListener);
+                }
             }
         });
     }
@@ -70,5 +109,7 @@ public class NumbersActivity extends AppCompatActivity {
 
             mMediaPlayer = null;
         }
+
+        mAudioManager.abandonAudioFocus(mOnAudioFocusChangeListener);
     }
 }

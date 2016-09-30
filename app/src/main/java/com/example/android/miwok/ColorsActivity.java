@@ -1,5 +1,7 @@
 package com.example.android.miwok;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,34 @@ import java.util.ArrayList;
 public class ColorsActivity extends AppCompatActivity {
 
     private MediaPlayer mMediaPlayer;
+    private AudioManager mAudioManager;
+
+    private AudioManager.OnAudioFocusChangeListener mOnAudioFocusChangeListener =
+            new AudioManager.OnAudioFocusChangeListener() {
+                @Override
+                public void onAudioFocusChange(int focusChange) {
+                    switch(focusChange) {
+                        case AudioManager.AUDIOFOCUS_LOSS:
+                            releaseMediaPlayer();
+                            break;
+
+                        case AudioManager.AUDIOFOCUS_GAIN:
+                        case AudioManager.AUDIOFOCUS_GAIN_TRANSIENT:
+                            mMediaPlayer.start();
+                            break;
+
+                        case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
+                        case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
+                            mMediaPlayer.pause();
+                            mMediaPlayer.seekTo(0);
+                            break;
+
+                        default:
+                            releaseMediaPlayer();
+                            break;
+                    }
+                }
+            };
 
     private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
         @Override
@@ -26,6 +56,8 @@ public class ColorsActivity extends AppCompatActivity {
         setContentView(R.layout.word_list);
 
         final ArrayList<Word> words = new ArrayList<Word>();
+
+        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         words.add(new Word("weṭeṭṭi", getString(R.string.translation_color_red), R.raw.color_red, R.drawable.color_red));
         words.add(new Word("chokokki", getString(R.string.translation_color_green), R.raw.color_green, R.drawable.color_green));
@@ -50,10 +82,16 @@ public class ColorsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 releaseMediaPlayer();
                 Word currentWord = words.get(i);
-                mMediaPlayer = MediaPlayer.create(ColorsActivity.this, currentWord.getAudioResourceId());
-                mMediaPlayer.start();
 
-                mMediaPlayer.setOnCompletionListener(mCompletionListener);
+                int audioFocusRequest = mAudioManager.requestAudioFocus(mOnAudioFocusChangeListener,
+                        AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+
+                if (audioFocusRequest == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+                    mMediaPlayer = MediaPlayer.create(ColorsActivity.this, currentWord.getAudioResourceId());
+                    mMediaPlayer.start();
+
+                    mMediaPlayer.setOnCompletionListener(mCompletionListener);
+                }
             }
         });
     }
@@ -70,5 +108,7 @@ public class ColorsActivity extends AppCompatActivity {
 
             mMediaPlayer = null;
         }
+
+        mAudioManager.abandonAudioFocus(mOnAudioFocusChangeListener);
     }
 }
