@@ -1,5 +1,7 @@
 package com.example.android.miwok;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,34 @@ import java.util.ArrayList;
 public class PhrasesActivity extends AppCompatActivity {
 
     private MediaPlayer mMediaPlayer;
+    private AudioManager mAudioManager;
+
+    private AudioManager.OnAudioFocusChangeListener mOnAudioFocusChangeListener =
+            new AudioManager.OnAudioFocusChangeListener() {
+                @Override
+                public void onAudioFocusChange(int focusChange) {
+                    switch (focusChange) {
+                        case AudioManager.AUDIOFOCUS_LOSS:
+                            releaseMediaPlayer();
+                            break;
+
+                        case AudioManager.AUDIOFOCUS_GAIN:
+                        case AudioManager.AUDIOFOCUS_GAIN_TRANSIENT:
+                            mMediaPlayer.start();
+                            break;
+
+                        case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
+                        case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
+                            mMediaPlayer.pause();
+                            mMediaPlayer.seekTo(0);
+                            break;
+
+                        default:
+                            releaseMediaPlayer();
+                            break;
+                    }
+                }
+            };
 
     private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
         @Override
@@ -26,6 +56,8 @@ public class PhrasesActivity extends AppCompatActivity {
         setContentView(R.layout.word_list);
 
         final ArrayList<Word> words = new ArrayList<Word>();
+
+        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         words.add(new Word("minto wuksus", getString(R.string.translation_phrase_where_going),
                 R.raw.phrase_where_are_you_going));
@@ -72,5 +104,7 @@ public class PhrasesActivity extends AppCompatActivity {
 
             mMediaPlayer = null;
         }
+
+        mAudioManager.abandonAudioFocus(mOnAudioFocusChangeListener);
     }
 }
