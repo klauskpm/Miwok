@@ -17,7 +17,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PhrasesFragment extends Fragment {
+public class PhrasesFragment extends CategoryFragment {
 
     private MediaPlayer mMediaPlayer;
     private AudioManager mAudioManager;
@@ -58,6 +58,7 @@ public class PhrasesFragment extends Fragment {
 
     public PhrasesFragment() {
         // Required empty public constructor
+        setFragmentTitleResourceId(R.string.category_phrases);
     }
 
 

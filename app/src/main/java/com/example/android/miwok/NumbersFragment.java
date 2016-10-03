@@ -17,7 +17,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NumbersFragment extends Fragment {
+public class NumbersFragment extends CategoryFragment {
 
     private MediaPlayer mMediaPlayer;
     private AudioManager mAudioManager;
@@ -58,8 +58,8 @@ public class NumbersFragment extends Fragment {
 
     public NumbersFragment() {
         // Required empty public constructor
+        setFragmentTitleResourceId(R.string.category_numbers);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

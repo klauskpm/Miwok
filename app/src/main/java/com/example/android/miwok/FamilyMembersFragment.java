@@ -17,8 +17,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FamilyMembersFragment extends Fragment {
-
+public class FamilyMembersFragment extends CategoryFragment {
     private MediaPlayer mMediaPlayer;
     private AudioManager mAudioManager;
 
@@ -58,6 +57,7 @@ public class FamilyMembersFragment extends Fragment {
 
     public FamilyMembersFragment() {
         // Required empty public constructor
+        setFragmentTitleResourceId(R.string.category_family);
     }
 
 
@@ -130,5 +130,4 @@ public class FamilyMembersFragment extends Fragment {
 
         mAudioManager.abandonAudioFocus(mOnAudioFocusChangeListener);
     }
-
 }

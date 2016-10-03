@@ -1,5 +1,6 @@
 package com.example.android.miwok;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -11,10 +12,18 @@ import java.util.ArrayList;
  */
 
 public class CategoryAdapter extends FragmentPagerAdapter {
-    private ArrayList<Fragment> mFragmentArrayList = new ArrayList<Fragment>();
+    private ArrayList<CategoryFragment> mFragmentArrayList = new ArrayList<CategoryFragment>();
+    private Context mContext;
 
-    public CategoryAdapter(FragmentManager fm) {
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return mContext.getString(mFragmentArrayList.get(position).getFragmentTitleResourceId());
+    }
+
+    public CategoryAdapter(Context context, FragmentManager fm) {
         super(fm);
+
+        mContext = context;
 
         mFragmentArrayList.add(new NumbersFragment());
         mFragmentArrayList.add(new FamilyMembersFragment());
